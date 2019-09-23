@@ -1,0 +1,104 @@
+---
+title: "Descriptive Summary Statistics Tables"
+author: "Jesse"
+date: "2019¦~9¤ë23¤é"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+library(tidyverse)
+gpa = read.csv("C:/Users/asus/Desktop/TA/TA session/week2/gpa.csv")
+```
+
+# %>% pipe
+f(x);  
+g(x);  
+h(x);  
+**Too much effort**  
+With %>%,  
+we can make it more clear: x %>% f() %>% g() %>% h();  
+
+```{r}
+x <- 6
+x <- exp(x)
+x <- log(x)
+
+x %>% exp() %>% log()
+```
+
+# Summarize()
+Reference: https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/summarise  
+With summarize(), we can get descriptive statistics such as mean, median... of our data.  
+```{r}
+gpa %>%
+  summarize(mean(gpa),
+            median(gpa))
+
+```
+Meanwhile, as in summarize() function, we create new variables, therefore we can give names toward our statistics data.  
+Moreover, store the table with variable.  
+```{r}
+gpa %>%
+  summarize(mean = mean(gpa),
+            median = median(gpa))
+gpa %>%
+  summarise(q25 = quantile(gpa, .25),
+            q75 = quantile(gpa, .75))
+```
+```{r}
+gpa_summary_statistics <- gpa %>%
+  summarise(mean = mean(gpa),
+            median = median(gpa),
+            q25 = quantile(gpa, .25),
+            q75 = quantile(gpa, .75)
+            )
+gpa_summary_statistics
+```
+
+# Contingency Table
+Reference: https://www.datacamp.com/community/tutorials/contingency-tables-r  
+With table() function, we can create contingency table.
+```{r}
+table(gpa$gender)
+```
+
+Fraction of marginal table would work with function `prop.table()`.
+```{r}
+prop.table(table(gpa$gender))
+```
+
+Of course, we can store it it variable.
+```{r}
+gpa_gender_proportion <- prop.table(table(gpa$gender))
+gpa_gender_proportion
+```
+
+Moreover, we can create two-way contingency tables.
+```{r}
+table(gpa$sleepnight, gpa$gender)
+prop.table(table(gpa$sleepnight, gpa$gender))
+```
+
+To make the table more clear, we can give names to each dimensions with `dnn`  
+```{r}
+prop.table(table(gpa$sleepnight, gpa$gender,dnn=c("SleepNight", "Gender")),margin = 1)
+```
+
+And store it in variable.
+```{r}
+sleepnight_gender <- table(gpa$sleepnight, gpa$gender)
+sleepnight_gender
+```
+
+Last but not least, we can add **total** by `addmargins`  
+```{r}
+addmargins(sleepnight_gender)
+```
+

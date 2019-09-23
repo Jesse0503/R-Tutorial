@@ -1,0 +1,134 @@
+---
+title: "Advanced Data Visualization"
+author: "Jesse"
+date: "2019¦~9¤ë23¤é"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,warning = FALSE, message = FALSE)
+library(tidyverse)
+gpa = read.csv("C:/Users/asus/Desktop/TA/TA session/week2/gpa.csv")
+```
+
+## Basic Plots
+We just try doing scatterplots and histogram during last class.
+Today we gonna have more plots to support our visulization.
+
+For futhur learning on ggplot2, the following link is the official instruction for ggplot package,  
+where you can learn different plots and do some customized settings.  
+https://ggplot2.tidyverse.org/reference/index.html
+
+### Scatterplot
+```{r}
+ggplot(data=gpa) +
+  geom_point(mapping = aes(x=out, y=gpa))
+```
+
+### Smoothed mean line
+```{r}
+ggplot(data=gpa) +
+  geom_smooth(mapping = aes(x=out, y=gpa))
+```
+
+### Barplot¡BHistogram
+```{r}
+ggplot(data = gpa) +
+  geom_bar(mapping = aes(x=gender))
+
+ggplot(data = gpa) +
+  geom_histogram(mapping = aes(x=gpa))
+```
+
+**Bar plots provide a visual presentation of categorical data.**
+**Histograms are used to plot denstiy of interval data.**
+
+### Boxplot
+````{r}
+ggplot(data = gpa) + 
+  geom_boxplot(mapping = aes(x=0.5, y=out))
+ggplot(data = gpa) + 
+  geom_boxplot(mapping = aes(group=gender, x=gender, y=out))
+```
+
+### Dotplot
+```{r}
+ggplot(data = gpa) + 
+  geom_dotplot(mapping = aes(x=out))
+ggplot(data = gpa) + 
+  geom_dotplot(mapping = aes(x=0.5, y=out), binaxis = "y")
+```
+
+
+After learning basic plots,  
+Now we can try do some advanced settings toward our plots.  
+
+## Advanced Settings
+
+### Title
+```{r}
+ggplot(data=gpa) +
+  geom_point(mapping = aes(x=out, y=gpa)) +
+  scale_x_continuous("Number of Nights going out") + 
+  scale_y_continuous("GPA") + 
+  ggtitle("Out ~ GPA")
+```
+
+### Breaks
+```{r}
+ggplot(data=gpa) +
+  geom_point(mapping = aes(x=out, y=gpa)) +
+  scale_x_continuous("Number of Nights going out", breaks = c(0,0.5,1,1.5,2,2.5,3,3.5,4)) + 
+  scale_y_continuous("GPA", breaks = c(3.2,3.4,3.6,3.8,4,4.2,4.4)) + 
+  ggtitle("Out ~ GPA")
+```
+
+### Labels
+```{r}
+ggplot(data=gpa) +
+  geom_point(mapping = aes(x=out, y=gpa)) +
+  scale_x_continuous("Number of Hours going out", breaks = c(0,0.5,1,1.5,2,2.5,3,3.5,4), labels = c(0,3,6,9,12,15,18,21,24)) + 
+  scale_y_continuous("GPA", breaks = c(3.2,3.4,3.6,3.8,4,4.2,4.4)) + 
+  ggtitle("Out Hours ~ GPA")
+```
+
+### Advanced Histogram
+**bins**¡B**col**
+```{r}
+ggplot(data = gpa) + 
+  geom_histogram(mapping = aes(x=gpa), bins = 10)
+ggplot(data = gpa) + 
+  geom_histogram(mapping = aes(x=gpa), bins = 10, col="black")
+```
+
+### Advanced Barplot
+**position**
+```{r}
+ggplot(data = gpa) + 
+  geom_bar(mapping = aes(x=out, fill=gender))
+ggplot(data = gpa) + 
+  geom_bar(mapping = aes(x=out, fill=gender), position = "dodge")
+ggplot(data = gpa) + 
+  geom_bar(mapping = aes(x=out, fill=gender), position = "fill") + 
+  scale_y_continuous("Frequency", breaks = c(0,0.25,0.5,0.75,1), labels = c("0","25%","50%","75%","100%"))
+```
+
+### Advanced Dotplot
+**stackdir**
+```{r}
+ggplot(data = gpa) + 
+  geom_dotplot(mapping = aes(x=out), stackdir = "center")
+```
+
+### Overlay
+```{r}
+ggplot(data=gpa) +
+  geom_point(mapping = aes(x=out, y=gpa)) +
+  geom_smooth(mapping = aes(x=out, y=gpa))
+```
