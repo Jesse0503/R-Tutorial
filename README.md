@@ -1,3 +1,3 @@
 # R-Tutorial
-## National Taiwan University  108-1 
-## Statistics with Recitation  TA Class 
+## National Taiwan University  Statistics with Recitation  108-1 
+TA Class R tutorial
