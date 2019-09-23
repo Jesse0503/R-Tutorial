@@ -1,0 +1,266 @@
+---
+title: "Introduction"
+author: "Jesse Chang"
+date: "2019¦~9¤ë14¤é"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# What is R ?
+
+ **R** is a computing environment which combine
+ 
+- an extensive set of functions for classical and modern statistical data analysis  
+- powerful numerical analysis tools  
+- graphics functions for visualizing data and model visualization  
+ 
+<tr>
+    <td><a href="https://www.r-project.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/R_logo.svg/1200px-R_logo.svg.png" width=200 height=200 ></a></td>
+    <td><a href="https://www.rstudio.com/products/rstudio/download/"><img src="https://pic2.zhimg.com/v2-9def57a8e96874c1144cc669e886a0aa_1200x500.jpg" width=200 height=200></a></td>
+</tr>
+
+## R
+
+You can press the image above to download R.<br>
+A new major version of R comes out once a year on average, and there are 2-3 minor releases each year.<br>
+Upgrading requires you to reinstall all the packages, but it will really worth it.
+
+## RStudio
+You can press the right image above to download and install RStudio.<br>
+RStudio is an integrated development environment, IDE, for R programming.
+<img src="https://d33wubrfki0l68.cloudfront.net/9a23d664f0f49bc2ef8e78bed6277dd48bd2b96d/af132/diagrams/rstudio-console.png" width = 600  height = 600></a>
+
+## Packages
+A R <b>package</b> is a collection of functions, data ,and documentation that allow us to do more than base R.<br>
+Currently, the packages we would learn to use are part of the <b>tidyverse</b>.<br>
+You can install the complete tidyverse with a single line of code:<br><br>
+<font size='6'><font color="green" face = "serif">install.packages</font>("tidyverse")</font>
+
+## Data Type, Arithmetic, and Vector  
+### Data Type
+    
+Below is the main data type in R
+
+- numeric  
+- logical  
+- character  
+- integer  
+<br>We can use `mode` to get the datatype, ex:  
+
+```{r}
+x <- 3
+y <- c(T,T,F)
+z <- 'Economics'
+```
+```{r}
+mode(x)
+```
+
+```{r}
+mode(y)
+```
+
+```{r}
+mode(z)
+```
+
+
+### Arithmetic
+- Addition: `+`  
+- Subtraction: `-`  
+- Multiplication: `*`  
+- Division: `/`  
+- Exponentiation: `^`  
+- Modulo: `%%`  
+- Squre Root: `sqrt()`  
+- Absolute Value: `abs()`   
+
+```{r}
+2 + 6 - 4* 2/ 8
+```
+```{r}
+10 ^ 3
+```
+```{r}
+10 %% 3
+```
+```{r}
+sqrt(17)
+```
+```{r}
+abs(-5556)
+```
+
+### Vector
+We use `c()` to create vector, <b>while all elements in a vector must be of the same data type</b>, we can also use `mode()` to check the data type.
+
+```{r}
+c(18,7,7)
+```
+```{r}
+c("One","Two","Three")
+```
+```{r}
+c(T,F,F)
+```
+```{r}
+mode(c(18, 7 , 2, 7))
+```
+<br>
+
+#### <font color="red">Question:</font>
+Q1: What would be the return value of `mode(c(F,"The",8))` <br>
+Q2: What would be the return value of `mode(c(F,2,8))`<br>
+<br>
+
+When we insert data of different types into vecor, they will be converted to the same data type. <br>
+*Character > Complex > Numeric > Integer > Logical*
+
+```{r}
+mode(c(18,7,T,9,"hello") )
+```
+Meanwhile, we can use `as.numeric` or `as.character` to convert datatype
+
+```{r}
+x <- as.character(c(1:6))
+print(x)
+```
+<br>
+
+#### <font color="red">Question:</font>
+What would be the outcome of as.numeric(c("No","Money","no"))?  
+<br>
+
+#### Function related to Vector
+- a:b  
+- seq()  
+- rep()  
+```{r}
+2:8
+```
+```{r}
+seq(1,9,by=3)
+```
+```{r}
+rep(0,times=5)
+```
+```{r}
+rep(c(1,2),times=3,each=2)
+```
+
+- length(): length of vector  
+- sum(): sum of vector  
+- prod(): product of vector  
+- sort(): sorting and therefore produce a new vector  
+- rank(): the rank of each element  
+
+```{r}
+length(rep(c(1,2),times=5,each=2))
+```
+```{r}
+sort(c(12,8,7,27,55))
+```
+```{r}
+rank(c(12,8,7,27,55))
+```
+<br>
+
+#### <font color="red">Question:</font>
+Q1: Use functions above to calculate the multiplication from one to ten<br>
+Q2: Use functions above to calculate the sum from one to ten
+<br>
+
+- mean(): mean of the vector  
+- var(): variance of the vector  
+- sd(): standard deviation of the vector  
+
+## Variable
+A basic concept in programming is called a **variable**. 
+
+A variable allows you to store a value (e.g. 4) or an object (e.g. a function description).<br>
+You can then later use the variable's name to easily access the value or the object that is stored within this variable.
+
+We use the **assignment operator: `<-`**
+```{r}
+x <- 10
+x
+```
+```{r}
+myNumber <- "Try"
+myNumber
+```
+We can perform arithmetic on variables,  
+add variables together,  
+change the value of an existing variable:  
+
+```{r}
+sqrt(x)
+```
+```{r}
+y <- 20
+x + y
+```
+```{r}
+y <- 30
+y
+```
+```{r}
+y <- y + sqrt(16)
+y
+```
+
+<br>
+
+#### <font color="red">Question:</font>
+Q1: Assign value 5 to the variable **my_apples** <br>
+Q2: Print out the value of the variabe **my_apples** <br> 
+Q3: Assign value 6 to the variable **my_oranges**<br>
+Q4: Add the variables **my_apples** and **my_oranges** to a new variable **my_fruits**.<br>
+Q5: Print out the value of the variable **my_fruits**<br>
+
+<br>
+
+## Logical Operators
+- \>
+- <
+- \>=
+- \<=
+- \== equal
+- !\= is not equal
+
+```{r}
+x <- c(60,50,30,1); 
+x>6
+```
+
+```{r}
+x==30
+```
+
+- & and
+- | or
+- A %in% B :   A is in B
+
+```{r}
+x
+```
+
+```{r}
+x > 25 & x < 55
+```
+
+```{r}
+x > 50 | x < 20
+```
+
+```{r}
+x %in% c(1:20)
+```

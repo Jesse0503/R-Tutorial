@@ -1,0 +1,96 @@
+---
+title: "Basic Data Visulisaion"
+author: "Jesse"
+date: "2019¦~9¤ë16¤é"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Data Visulisation
+As we did some basic analysis toward our data, we got some hypothesis.  
+Thereafter, it's time for us to visualize our hypothesis to test whether it's true,  
+and make it more easy to understand.
+
+
+## Dataset
+Dataset is the data we're going to deal with. Normaly, there are 2 ways to import the dataset.
+
+1. csv files.
+2. library->dataset in it.
+
+Currently, we are going to discuss about the first way.
+
+After downloading the dataset, we can use `read.csv()` to import dataset.  
+Regarding file path, we may use *absolute path* or *relative path* to import the files.
+
+Absolute Path
+```{r}
+babies <- read.csv("C:/Users/asus/Desktop/TA/TA session/week1/babies.csv")
+head(babies,10)
+```
+
+Relative Path
+```{r}
+babies <- read.csv("babies.csv")
+head(babies,10)
+```
+## Plots
+
+After importing dataset, it's time to do some analysis.  
+Today, we will use learn three kinds of plot.
+
+1. Scatterplot
+2. Histogram
+3. Boxplot
+
+Before conducting plots, we have to include *tidyverse* library so that we can do plots.  
+`library(tidyverse)` so that we can use functions related to *ggplot* in it.
+
+Firstly, that's see our dataset, babies.
+```{r}
+head(babies,10)
+```
+
+### Scatterplot
+We might want to see the correlation between weight and height.  
+Under such circumstances, we can create a scatterplot with it.
+
+Firstly, we create our graph and make R software know what dataset we are using.  
+We can use`ggplot(data= THE NAME of THE DATASET)` to reach that.  
+Then, the function geom_point() adds a layer of points to your plot.
+
+```{r}
+ggplot(data=babies) + 
+  geom_point(mapping = aes(x = height, y = weight))
+```
+
+Just as the above function shows, *mapping* is always with *aes()*,  
+and the x and y arguments what variables to map to the x and y axes.
+
+
+### Histogram
+Pretty similar to the scatterplot, we use `ggplot(data)` to create our graph.
+Thereafter, we use `geom_bar` and x arguments in it to map the counts of the variable. 
+
+```{r}
+ggplot(data = babies) + 
+  geom_bar(mapping = aes(x = age))
+```
+
+### Boxplot
+Boxplot allow one to visually estimate various estimators, such as interquartle range, midhinge, range, mid-range and trimean.
+Key difference from the two scatterplot is that we need to `group` the variable in x arguments in `aes()` to ensure we can get the correct plot.
+
+```{r}
+ggplot(data = babies, mapping = aes(group = smoke,x= smoke, y = height)) + 
+  geom_boxplot()
+```
+
+
+#### Question
+You can get several datasets from https://www.openintro.org/stat/data.php.
+Pick and download one dataset, conduct *scatterplot*, *histogram*, and *boxplot* of the variables you pick.
