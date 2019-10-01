@@ -1,0 +1,182 @@
+---
+title: "Ifelse¡Bfunction"
+author: "Jesse Chang"
+date: "2019¦~10¤ë1¤é"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+library(tidyverse)
+```
+
+# Conditional Operators
+1. ifelse  
+2. if¡Belse if ¡Belse  
+
+## ifelse
+IFelse returns a value for true or false.  
+**ifelse(test, true, false)**
+
+Let us give some examples.  
+```{r}
+x <- 6
+y <- ifelse(x >12, 2,10)
+y
+```
+
+```{r}
+x <- 50
+y <- ifelse(x>10, 5, 8)
+y
+```
+
+It also works with `&` and `|` statements
+
+```{r}
+x <- 10
+y <- ifelse(x>5 & x <12, 5 ,10)
+y
+```
+
+```{r}
+x <- 12
+y <- ifelse(x>0 | x < -2, 222, 666)
+y
+```
+
+## if + else if + else
+
+
+if(condition 1)  
+{  
+  Statements 1  
+} else if(condition 2)  
+{  
+  Statements 2  
+}...
+ else if(condition k)  
+{  
+  Statements k  
+} else  
+{  
+  Statemtns k+1  
+}  
+
+```{r}
+x = 20
+if(x <1)
+{
+  y = 5
+  z = 10
+}else if (x <10 & x >=1)
+{
+  y = 10
+  z = 20
+}else
+{
+  y = 20
+  z = 40
+}
+print(c(y,z))
+```
+
+### Question
+1. Create one conditional statements with two `else if`  
+2. Turn the following statements into if else condition.  
+1) Johnny has 3 apples. If Johnny has more than 5 apples, Doris will have 5; If not, Doris will gave 6. Print out how many apples Doris has. Hint:Do it with `ifelse`  
+2) Tim has 5 apples. If he has more than 6 apples, he would say "I have many apples"; if he has more than 3 but less than 6 apples, he would say "I have some apples"; if he has less than 3, he would say "I have few apples". Hint: Do it with `if else if else `   
+
+
+
+
+# Function
+A function is a set of statements organized together to perform a specific task.  
+R has a large number of in-built functions such as `geom_point()`¡B`ggplot()` and we can create our own functions.  
+
+**Function Definition**  
+function_name <- function(arg)1, arg_2, ...)
+{
+  Function body
+}
+
+- Function Name: the name of the function
+- Arguments : When a function is invoked, you pass a value to the function by the arguments. There are optional; you can assign default values to arguments.
+- Function Body : A collection of statements defining what the function does.
+
+## Built-in Function
+`seq()`, `mean()`, `sum()` etc.  
+They are directly called by written programs.
+
+```{r}
+print(seq(25:50))
+print(sum(25:50))
+```
+
+## User-defined Function
+
+
+```{r}
+new_function <- function(a)
+{
+  if (x >2)
+    print(3)
+  else
+    print(5)
+}
+new_function(5)
+```
+
+**We can create a function without any argument.**
+
+```{r}
+new_func_no_arg <- function()
+{
+  print("No arguments")
+}
+new_func_no_arg()
+```
+
+**Meanwhile, we can call a function with default arguments.  **
+
+If there's new value toward the arguments, the default value could be replaced.
+
+```{r}
+new_func_with_default <- function(a = 3, b =6)
+{
+  result <- a*b
+  print(result)
+}
+new_func_with_default()
+new_func_with_default(9,6)
+new_func_with_default(10)
+```
+
+
+## Calling a function with arguments
+You can call a function with arguments and call arguments either **by position** or **by name**.  
+The arguments to a function can be supplied in the same sequence or can be supplied in a different sequence but assigned with the names of the arguments.
+
+```{r}
+new_func_arg <- function(a,b,c)
+{
+  result <- a*b / c
+  print(result)
+}
+new_func_arg(5,3,15)
+new_func_arg(b=12, a = 20, c = 3)
+```
+
+
+
+
+
+### Question
+1. How to assign values only to argument b in `new_func_with_default`  
+2. Make a function to see whether the passed number is the multiple of 3
