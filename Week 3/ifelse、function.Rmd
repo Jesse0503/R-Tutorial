@@ -101,7 +101,7 @@ A function is a set of statements organized together to perform a specific task.
 R has a large number of in-built functions such as `geom_point()`¡B`ggplot()` and we can create our own functions.  
 
 **Function Definition**  
-function_name <- function(arg)1, arg_2, ...)
+function_name <- function(arg1, arg_2, ...)
 {
   Function body
 }
@@ -154,7 +154,7 @@ new_func_with_default <- function(a = 3, b =6)
   print(result)
 }
 new_func_with_default()
-new_func_with_default(9,6)
+new_func_with_default(9,7)
 new_func_with_default(10)
 ```
 
