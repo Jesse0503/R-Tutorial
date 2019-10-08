@@ -1,0 +1,177 @@
+---
+title: "Random¡BLoop"
+author: "Jesse Chang"
+date: "2019¦~10¤ë8¤é"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+library(tidyverse)
+```
+
+# Random Numbers
+
+## Uniform distribution  
+**runif(n, min = 0, max = 1)**  
+`runif()` function enables us to generate random numbers based on *uniform distribution*.  
+Minimum number would be set as 0 on default,  
+and Maximum number would be set as 1 on default.  
+
+```{r}
+runif(1)
+```
+
+```{r}
+runif(4)
+```
+
+```{r}
+runif(3,2,5)
+```
+
+```{r}
+runif(5,min = 0, max = 50)
+```
+
+
+## Normal Distribution
+**rnorm(n, mean=0, sd=1)**  
+`rnorm()` function enables us to generate random numbers based on *normal distribution*.  
+Mean would be set as 0 on default,  
+and Standard Deviation would be set as 1 on default.  
+
+
+
+```{r}
+rnorm(1)
+```
+
+```{r}
+rnorm(8)
+```
+
+```{r}
+rnorm(3,0,2)
+```
+
+```{r}
+rnorm(5,mean=2, sd= 5)
+```
+
+
+## Binomial Distribution
+**rbinom(n, size, prob)**  
+`rbinom()` function enables us to generate random deviates based on *binomial distribution*.  
+Size would be set as *number of trials*.  
+Prob would be set as *probability of success on each trial*.  
+
+
+```{r}
+rbinom(10,20,0.1)
+```
+
+
+## seed
+Random numbers and not literally 'random' numbers.  
+In fact, they are generated based on certain function.  
+
+`set.seed()` makes generated 'random' numbers the same.
+
+```{r}
+rnorm(5)
+```
+
+```{r}
+rnorm(5)
+```
+
+```{r}
+set.seed(5)
+rnorm(5)
+```
+
+```{r}
+set.seed(5)
+rnorm(5)
+```
+
+
+*Note*  
+It doesn't mean that after setting seed, you will always get the same output when generating random numbers.  
+Instead, after setting seed, we will get the same random numbers generating sequence thereafter.  
+
+```{r}
+set.seed(5)
+rnorm(5)
+rnorm(5)
+```
+
+```{r}
+set.seed(5)
+rnorm(5)
+rnorm(5)
+```
+
+
+
+
+# Loop
+
+
+## for
+for(variable in vector)
+{
+ statements
+}
+
+```{r}
+n = 0
+for(i in 1:10)
+{
+  n = n+ i
+}
+print(n)
+```
+
+**Range could be numeric or character**
+
+```{r}
+x <- c("Microeconomics", "Macroeconomics", "Statistics")
+for (i in x){
+  print(paste("I don't like", i))
+}
+```
+
+`paste()` is the function to concate two character strings together.  
+
+
+## While
+while(condition)
+{
+ statements
+}
+
+As long as the condition is right, we would continue doing the statements.  
+
+
+```{r}
+n = 0
+sum = 0
+while(n <10)
+{
+  sum = sum + n
+  n = n + 1
+}
+sum
+```
+
+### Question
+1. Calculate the sum from one to twenty through `for` and `while`
+2. Calculate the multiplication from one to twenty through `for` and `while`

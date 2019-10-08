@@ -1,0 +1,92 @@
+---
+title: "Distribution"
+author: "Jesse Chang"
+date: "2019¦~10¤ë7¤é"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+library(tidyverse)
+```
+
+# Uniform Distribution  
+
+**dunif(x, min=0, max=1)**: density.  
+x = vector of quantiles.  
+
+**runif(n, min=0, max=1)**  
+
+## Density curve.
+```{r}
+x <- seq(0,1,by=0.02)
+y <- dunif(x, 0, 1)
+ggplot() + 
+  geom_line(mapping = aes(x=x, y=y))
+```
+## Sampling
+
+```{r}
+x <- runif(52,0,1)
+hist(x)
+```
+
+`hist()` is a easier way to conduct histogram.   
+You may still use `ggplot() + geom_histogram` to reach the similar result.  
+
+
+
+# Normal Distribution  
+
+**dnorm(x, min=0, max=1)**: density.  
+x = vector of quantiles.  
+
+**rnorm(n, min=0, max=1)**  
+
+## Density curve.
+```{r}
+x <- seq(-2,2,by=0.02)
+y <- dnorm(x, 0, 1)
+ggplot() + 
+  geom_line(mapping = aes(x=x, y=y))
+```
+## Sampling
+
+```{r}
+x <- rnorm(200,0,1)
+hist(x)
+```
+
+
+# Binomial Distribution  
+
+**dbinom(x, size, prob)**: density  
+**rbinom(n, size, prob)**  
+
+## Density curve.
+```{r}
+x <- seq(0,100)
+y <- dbinom(x, 100, 0.5)
+ggplot() + 
+  geom_line(mapping = aes(x=x, y=y))
+```
+
+
+## Sampling
+
+```{r}
+x <- rbinom(50,100,0.5)
+hist(x)
+```
+
+```{r}
+x <- rbinom(200,100,0.5)
+hist(x)
+```
+
