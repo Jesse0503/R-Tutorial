@@ -126,7 +126,7 @@ rnorm(5)
 
 
 ## for
-for(variable in vector)
+for(variable in vector)  
 {
  statements
 }
@@ -140,7 +140,7 @@ for(i in 1:10)
 print(n)
 ```
 
-**Range could be numeric or character**
+**Vector could be numeric or character**
 
 ```{r}
 x <- c("Microeconomics", "Macroeconomics", "Statistics")
@@ -153,7 +153,7 @@ for (i in x){
 
 
 ## While
-while(condition)
+while(condition)  
 {
  statements
 }

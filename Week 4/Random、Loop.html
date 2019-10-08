@@ -1525,13 +1525,13 @@ div.tocify {
 Minimum number would be set as 0 on default,<br />
 and Maximum number would be set as 1 on default.</p>
 <pre class="r"><code>runif(1)</code></pre>
-<pre><code>## [1] 0.4716847</code></pre>
+<pre><code>## [1] 0.929102</code></pre>
 <pre class="r"><code>runif(4)</code></pre>
-<pre><code>## [1] 0.9811530 0.9587207 0.8575329 0.4870987</code></pre>
+<pre><code>## [1] 0.82808835 0.05301308 0.80472568 0.97577922</code></pre>
 <pre class="r"><code>runif(3,2,5)</code></pre>
-<pre><code>## [1] 2.223771 3.532431 3.852393</code></pre>
+<pre><code>## [1] 2.978911 4.894657 4.275796</code></pre>
 <pre class="r"><code>runif(5,min = 0, max = 50)</code></pre>
-<pre><code>## [1] 48.661757  4.556198  2.670634 21.433881  2.889843</code></pre>
+<pre><code>## [1] 23.256827 33.989418  1.656008  7.087775 23.257065</code></pre>
 </div>
 <div id="normal-distribution" class="section level2">
 <h2>Normal Distribution</h2>
@@ -1540,14 +1540,14 @@ and Maximum number would be set as 1 on default.</p>
 Mean would be set as 0 on default,<br />
 and Standard Deviation would be set as 1 on default.</p>
 <pre class="r"><code>rnorm(1)</code></pre>
-<pre><code>## [1] -0.7835187</code></pre>
+<pre><code>## [1] 0.6880067</code></pre>
 <pre class="r"><code>rnorm(8)</code></pre>
-<pre><code>## [1] -1.2706005 -0.1960860  0.4307845  2.0844219 -2.0590191  1.7470475
-## [7] -1.6236400 -0.3874498</code></pre>
+<pre><code>## [1] -1.6480656  0.8809756  0.7035288 -1.2538476 -0.1070437 -0.9373101
+## [7]  1.2816404  0.6920948</code></pre>
 <pre class="r"><code>rnorm(3,0,2)</code></pre>
-<pre><code>## [1] -1.458698 -3.088798  1.526971</code></pre>
+<pre><code>## [1] 0.7446763 2.1744785 2.4781955</code></pre>
 <pre class="r"><code>rnorm(5,mean=2, sd= 5)</code></pre>
-<pre><code>## [1] -0.6727961  2.9309907  0.1437985 -1.2125478 -1.9108560</code></pre>
+<pre><code>## [1]  4.327613  2.201074 -5.055250  6.211554 12.600655</code></pre>
 </div>
 <div id="binomial-distribution" class="section level2">
 <h2>Binomial Distribution</h2>
@@ -1556,7 +1556,7 @@ and Standard Deviation would be set as 1 on default.</p>
 Size would be set as <em>number of trials</em>.<br />
 Prob would be set as <em>probability of success on each trial</em>.</p>
 <pre class="r"><code>rbinom(10,20,0.1)</code></pre>
-<pre><code>##  [1] 4 0 1 4 3 3 2 3 2 2</code></pre>
+<pre><code>##  [1] 6 5 3 1 3 0 3 2 1 3</code></pre>
 </div>
 <div id="seed" class="section level2">
 <h2>seed</h2>
@@ -1564,9 +1564,9 @@ Prob would be set as <em>probability of success on each trial</em>.</p>
 In fact, they are generated based on certain function.</p>
 <p><code>set.seed()</code> makes generated ‘random’ numbers the same.</p>
 <pre class="r"><code>rnorm(5)</code></pre>
-<pre><code>## [1] -1.0335632  0.8702508 -1.0924792  2.1363274  0.5459075</code></pre>
+<pre><code>## [1]  1.1941399  0.2972614 -0.8138828 -0.2064600  0.1580523</code></pre>
 <pre class="r"><code>rnorm(5)</code></pre>
-<pre><code>## [1] -0.8572820 -1.4838181  1.2930957 -1.1010425 -0.5194535</code></pre>
+<pre><code>## [1]  0.3398463  0.8931575 -1.3914174 -0.9036036 -0.3156133</code></pre>
 <pre class="r"><code>set.seed(5)
 rnorm(5)</code></pre>
 <pre><code>## [1] -0.84085548  1.38435934 -1.25549186  0.07014277  1.71144087</code></pre>
@@ -1592,7 +1592,8 @@ rnorm(5)</code></pre>
 <h1>Loop</h1>
 <div id="for" class="section level2">
 <h2>for</h2>
-<p>for(variable in vector) { statements }</p>
+<p>for(variable in vector)<br />
+{ statements }</p>
 <pre class="r"><code>n = 0
 for(i in 1:10)
 {
@@ -1600,7 +1601,7 @@ for(i in 1:10)
 }
 print(n)</code></pre>
 <pre><code>## [1] 55</code></pre>
-<p><strong>Range could be numeric or character</strong></p>
+<p><strong>Vector could be numeric or character</strong></p>
 <pre class="r"><code>x &lt;- c(&quot;Microeconomics&quot;, &quot;Macroeconomics&quot;, &quot;Statistics&quot;)
 for (i in x){
   print(paste(&quot;I don&#39;t like&quot;, i))
@@ -1612,7 +1613,8 @@ for (i in x){
 </div>
 <div id="while" class="section level2">
 <h2>While</h2>
-<p>while(condition) { statements }</p>
+<p>while(condition)<br />
+{ statements }</p>
 <p>As long as the condition is right, we would continue doing the statements.</p>
 <pre class="r"><code>n = 0
 sum = 0
