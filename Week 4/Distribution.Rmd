@@ -44,10 +44,10 @@ You may still use `ggplot() + geom_histogram` to reach the similar result.
 
 # Normal Distribution  
 
-**dnorm(x, min=0, max=1)**: density.  
+**dnorm(x, mean=0, sd=1)**: density.  
 x = vector of quantiles.  
 
-**rnorm(n, min=0, max=1)**  
+**rnorm(n, mean=0, sd=1)**  
 
 ## Density curve.
 ```{r}
