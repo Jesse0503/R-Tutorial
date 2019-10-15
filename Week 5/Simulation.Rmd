@@ -1,0 +1,200 @@
+---
+title: "Simulation"
+author: "Jesse"
+date: "2019¦~10¤ë15¤é"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+library(tidyverse)
+```
+
+We've learnt *Data-visulization*, *summary statistics tables*, *ifelse*, *function*, and *loop*.  
+Now it's time for us to make use of  all these techniques to do some advanced works ¡Ð **Simulation**.    
+
+Today, we gonna try one simulation ¡Ð *dice rolling averages*.
+
+# Dice Rolling Averages
+We will simulate dice rolling for 2000 times, and calculate the average points.  
+What's more, we'll see what might happen as we roll the dice more and more times.
+
+
+
+## Step 1 : Dice Rolling.
+First of all, we need to try rolling the dice.  
+Here, we use `random` and `floor` (or `ceiling`) function to help us create random integers.  
+
+*Remember to set.seed() or you will get different rsults every time you run your code*
+
+```{r}
+set.seed(503)
+```
+
+After we setting seed, now it's time to roll the dice.
+
+```{r}
+dice_rolling_2000 <- floor(runif(2000,1,7))  #ceiling(runif(2000,0,6))
+```
+
+## Step 2 : Do some statistics summary.
+After rolling dices, we could see some statistics summary with function `summary`.
+
+```{r}
+summary(dice_rolling_2000)
+```
+
+### Question
+How to create *mean* and *standard deviation* of *dice_rolling_2000*?
+
+
+## Step 3 : Calculating average dice roll.
+Next, we can start try calulating average dice roll with `for loop`.
+
+```{r}
+#Create an empty vector to store the averages.
+
+average_dice_roll_2000 <- c()
+
+#Create average vector with for loop
+dice_sum = 0
+for (i in 1:2000) {
+  dice_sum = dice_sum + dice_rolling_2000[i]
+  average_dice_roll_2000[i] = dice_sum / i
+}
+
+```
+### Question
+How to create average vector with `while loop`?
+
+
+## Step 4 : Visulize the result.
+As we want to see the impact of rolling times getting larger.  
+```{r}
+average_dice_roll_2000
+```
+We can't get much information from numbers.  
+With plot, we might know them more!  
+
+Here know, we gonna create a plot with `geom_line`.(Remember to `library(tidyverse)`)  
+
+```{r}
+ggplot() +
+  geom_line(mapping = aes(x=seq(1,2000), y=average_dice_roll_2000))
+```
+With plots, we could see as rolling times geting bigger, the average's more close to 3.5!  
+
+### Question
+While we know more about average_dice_roll, we could also know more about dice rolling sequence(dice_rolling_2000) through create histogram of it. Try make one!
+
+
+
+## Review: ifelse
+`if else` are really important functions and we might use them a lot. Therefore, let's do some review and try coding with them.  
+
+*Qeustion: how many numbers bigger than 3 are there in dice_rolling_2000*
+
+Method 1
+```{r}
+bigger_than_3 = 0
+for (i in 1:2000) {
+  if(dice_rolling_2000[i] > 3)
+  {
+    bigger_than_3 = bigger_than_3 + 1
+  }
+}
+bigger_than_3
+```
+
+Method 2
+```{r}
+# Method 2 
+bigger_than_3_sequecne = ifelse(dice_rolling_2000 > 3, 1 , 0)
+bigger_than_3 = sum(bigger_than_3_sequecne)
+
+bigger_than_3
+```
+
+### Question
+Calculate the counts of numbers being 5 or 6, numbers being 3 or 4, numbers being 1 or 2 in dice_rolling_2000.  
+Hint: Use `if` `else if` `else`.
+
+
+
+## Final : Make simulation a function.
+After we conducting our simulations, we might want to make all these into a function.  
+Next time we want to implement the same or similar simulation, we can directly call the function.
+
+
+```{r}
+dice_rolling_simulation <- function()
+{
+  dice_rolling_2000 <- floor(runif(2000,1,7))
+  average_dice_roll_2000 <- c()
+  dice_sum = 0
+  for (i in 1:2000) {
+    dice_sum = dice_sum + dice_rolling_2000[i]
+    average_dice_roll_2000[i] = dice_sum / i
+    }
+  ggplot() +
+    geom_line(mapping = aes(x=seq(1,2000), y=average_dice_roll_2000))
+}
+```
+
+And next time we want to implement the average simulation, we could just call the function.
+```{r}
+dice_rolling_simulation()
+```
+
+Nevertheless, as might want to do some adjustments toward our function, We would use **arguments** to make it.  
+Like this time, we want to adjust maximum and minimum number for every time we call the function.
+
+```{r}
+dice_rolling_simulation_minmax_adjusted <- function(min, max)
+{
+  dice_rolling_2000 <- floor(runif(2000,min,max + 1))
+  average_dice_roll_2000 <- c()
+  dice_sum = 0
+  for (i in 1:2000) {
+    dice_sum = dice_sum + dice_rolling_2000[i]
+    average_dice_roll_2000[i] = dice_sum / i
+    }
+  ggplot() +
+    geom_line(mapping = aes(x=seq(1,2000), y=average_dice_roll_2000))
+}
+```
+
+And next time, if we want to conduct similar simulations but maxmium being 8, we can call the function.
+
+```{r}
+dice_rolling_simulation_minmax_adjusted(min = 1, max = 8)
+```
+
+
+Also, you can set default value to your arguments so that people can still call your simulation withour setting max, min, rolling times!
+
+```{r}
+dice_rolling_simulation_minmax_adjusted <- function(min = 1, max = 6)
+{
+  dice_rolling_2000 <- floor(runif(2000,min,max + 1))
+  average_dice_roll_2000 <- c()
+  dice_sum = 0
+  for (i in 1:2000) {
+    dice_sum = dice_sum + dice_rolling_2000[i]
+    average_dice_roll_2000[i] = dice_sum / i
+    }
+  ggplot() +
+    geom_line(mapping = aes(x=seq(1,2000), y=average_dice_roll_2000))
+}
+```
+
+### Question
+Create a function where dice rolling times being adjustable.  
+If possible, set default rolling times to be 2000.  
+
