@@ -1,0 +1,139 @@
+---
+title: "Matrices"
+author: "Jesse"
+date: "2019¦~10¤ë22¤é"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+library(tidyverse)
+```
+
+**Matrices** are used in Econometrics a lot. Therefore, we have to get used to them, knowing how to conduct arithmetics.  
+
+## Creating Matrices
+We can use `matrix` to create matrix, or use `as.matrix` to turn variables of other data type into matrix. 
+`matrix(data= NA, ncol = 1, nrow = 1, byrow = FALSE)`
+
+```{r}
+matrix(1:20,nrow = 4, ncol = 5, byrow = FALSE)
+```
+
+```{r}
+matrix(1:20, nrow = 4, ncol = 5, byrow = TRUE)
+```
+
+We could use `cbind()` or `rbind()` to combine several vectors or elements into one matrix.
+
+```{r}
+x <- c(1:4)
+y <- c(2:5)
+
+cbind(x,y)
+rbind(x,y)
+```
+
+`dim` gives you the dimension of the matrix.
+
+```{r}
+dim(rbind(x, y))
+```
+
+## Column / Row names
+We could use `colnames()` and `rownames()` to call or look the names of each column / row  
+
+```{r}
+w<- matrix(4:6, nrow = 1, ncol = 3, byrow = FALSE)
+rownames(w) <- c("Wow")
+colnames(w) <- c("I", "love", "that")
+print(w)
+
+```
+
+When we use `cbind()` or `rbind()`, the names of the variables will turned into the names of rows or columns.  
+
+```{r}
+John <- seq(108,102,-2)
+Mary <- rep(c(3,5), times=1, each=2)
+John_Mary <- cbind(John, Mary)
+print(John_Mary)
+```
+
+## Basic arithmetics function
+
+- `t(x)` : transpose of x
+- `%*%` : multiplication
+- `det(x)` : determinant
+- `solve(x)` : inverse matrix
+
+```{r}
+matrix_one <- matrix(2:5, nrow = 2, ncol = 2)
+matrix_two <- matrix(6:9, nrow = 2, ncol = 2)
+matrix_one
+matrix_two
+```
+
+```{r}
+t(matrix_one)
+```
+
+```{r}
+three <- matrix_one %*% matrix_two
+three
+```
+
+```{r}
+det(matrix_one)
+```
+
+```{r}
+solve(matrix_one)
+```
+
+## Data Extraction
+
+```{r}
+m <- matrix(1:20, nrow =4, ncol = 5)
+colnames(m) <- c("Math", "Chinese", "Spanish", "Science", "English")
+rownames(m) <- c("One", "Two", "Three", "Four")
+print(m)
+```
+
+Then you can extract data by index.  
+
+```{r}
+m[4,5]
+```
+
+```{r}
+m[2,]
+```
+
+```{r}
+m[,c(1:3)]
+```
+
+Extract fata by name
+
+```{r}
+m["One", "Math"]
+```
+
+```{r}
+m[,c("English", "Spanish")]
+```
+
+
+### Question
+John, Mary and Jean all had three tests for Econometrics. Here's their grades:  
+- John: 70,59,61  
+- Mary: 66,88,98  
+- Jean: 84,88, 79  
+Make a matrix of it.

@@ -1,0 +1,92 @@
+---
+title: "Simulation-2"
+author: "Jesse"
+date: "2019¦~10¤ë22¤é"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+library(tidyverse)
+```
+
+We've learnt to build a simulation experiment with what we've learnt so far.  
+Today, we are going to try building one more simulation, and practice *function* and *for loop* with it.  
+Let's try visualize outcome of coin flipping.
+
+# Coin Flipping (flipping 50 times)
+Today, we gonna try coin flipping several times, and visualize their sample means.  
+We gonna see the difference when we trying sampling coin flipping more times every try.  
+As we wanna see the difference of sample means distribution when sampling times getting more,  
+here we try sampling 20 times, 50 times, 100 times.
+
+
+## First Step: Create vectors to store.
+
+```{r}
+coin_flipping_mean_20 = c()
+coin_flipping_mean_50 = c()
+coin_flipping_mean_100 = c()
+```
+
+## Second Step: Conduct sampling.
+
+*Remember to set.seed() or you will get different rsults every time you run your code*
+
+```{r}
+set.seed(1215)
+```
+
+Then, here we do the sampling.  
+
+```{r}
+for (i in 1:200) {
+  sampling = rbinom(20, 50, 0.5)
+  coin_flipping_mean_20[i] = mean(sampling)
+}
+for (i in 1:200) {
+  sampling = rbinom(50, 50, 0.5)
+  coin_flipping_mean_50[i] = mean(sampling)
+}
+for (i in 1:200) {
+  sampling = rbinom(100, 50, 0.5)
+  coin_flipping_mean_100[i] = mean(sampling)
+}
+```
+
+### Question
+As we see, we have to create three `for loop` to do the previous sampling.  
+Can we do the previous thing by just using one `for loop`?How?  
+Will the result being the same as we did?  
+
+
+## Third Step: Data Visulization
+
+As we see, we can hardly find out anything by these numbers.
+
+```{r}
+coin_flipping_mean_20
+coin_flipping_mean_50
+coin_flipping_mean_100
+```
+
+Plots can help us more likely to discover new findings or consume information.  
+Now we can do histrogram for 20, 50, 100 times to see the difference for easily.  
+
+```{r}
+hist(coin_flipping_mean_20)
+hist(coin_flipping_mean_50)
+hist(coin_flipping_mean_100)
+```
+
+## Fourth Step: Make functions.
+### Question
+Now we want to make a function where *sampling times* ,*flipping times*, and *how many sample means we want* being customizable. Try creating this function.
+
+
