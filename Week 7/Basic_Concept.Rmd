@@ -1,0 +1,84 @@
+---
+title: "Basic Concepts"
+author: "Jesse Chang"
+date: "2019¦~10¤ë28¤é"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+library(tidyverse)
+```
+
+
+Today, we gonna know two more concepts that would help you do programming.  
+We gonna see *variables naming* and *help?*.  
+
+# Variables Naming
+We store data such as matrix, vectors, functions in variables.  
+Here we see the rules of naming variables, and some suggestions toward naming different types of variables.  
+
+
+## Rules for naming variables in R
+
+1. It can be a combination of letters, digits, period(.) and underscore (_).  
+2. It must start with a letter or a period. If it starts with a period, it cannot be followed by a digit.  
+3. Reserved words cannot be used for naming.  
+
+Examples
+**Valid variables in R**  
+
+total, Sum, .fine.with.dot, this_is_acceptable, Number5
+
+**Invalid identifiers in R**  
+
+tot@l, 5um, _fine, TRUE, .0ne
+
+## Naming Convention
+Here's some general convention ofor naming variables.  Following them would improve your code's readability.  
+
+1. Variable and function names should be lowercase.
+2. Use underscore or period to separate words within a name.
+
+Examples  
+**Good**  
+day_one  
+day_1
+
+**Bad**  
+DayOne  
+dayone  
+djm1  
+DAYONE  
+
+
+### Questions
+Jason is trying to name some variables.  
+Point out which variables is valid and which not.  
+
+tot$l, .good,with,it, .1ne, it_is_good, FINE, FALSE
+
+
+
+# help?
+Currently, we've learnt a lot functions.  
+There are two ways to furthur learn how to use them.
+
+1. Google it
+2. use `help?` function
+
+
+Examples
+I wanna furhtur see what I can do with the `matrix` function.  
+Other than directly google it. I can use `help` or `?`.  
+
+`help(matrix)`
+
+`?matrix`
+

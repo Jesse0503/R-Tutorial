@@ -1,5 +1,5 @@
 ---
-title: "Matrices"
+title: "Array_Matrices"
 author: "Jesse"
 date: "2019¦~10¤ë22¤é"
 output: 
@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE)
 library(tidyverse)
 ```
 
-**Matrices** are used in Econometrics a lot. Therefore, we have to get used to them, knowing how to conduct arithmetics.  
+**Arrays**, **Matrices** are used in Econometrics a lot. Therefore, we have to get used to them, knowing how to conduct arithmetics.  
 
 ## Creating Matrices
 We can use `matrix` to create matrix, or use `as.matrix` to turn variables of other data type into matrix. 
@@ -65,6 +65,76 @@ Mary <- rep(c(3,5), times=1, each=2)
 John_Mary <- cbind(John, Mary)
 print(John_Mary)
 ```
+
+Also, you can use `dimnames` arguments to set the name of columns and row names.
+
+```{r}
+w <- matrix(1:6, nrow=2, ncol=3,
+            dimnames = list(c("row1", "row2"), c("C_1","C_2","c_3")))
+print(w)
+```
+
+
+
+## Multi-dimensional Array
+When we create multi-dimensional array, we use `array()`
+`array(data = NA, dim = length(data), dimnames = NULL)`
+
+
+
+```{r}
+array(1:24, dim = c(2,3,4))
+```
+
+Still, you can use `dimnames` arguments to set names.
+
+```{r}
+array(1:24, dim = c(2, 3, 4), dimnames = list(
+  X = c("A1","A2"), Y=c("B1", "B2", "B3"), Z = c("C1", "C2", "C3", "C4")
+))
+```
+
+
+## Basic Related Functions
+
+- `NROW`: return the number of rows; when it's multi-dimensional, it returns the number of first dimension.
+- `NCOL`: return the number of columns; when it's multi-dimensional, it returns the number of second dimension.
+- `length()`: the number of all elements.
+- `dim()` : change dimensions.
+
+
+```{r}
+x_matrix <- matrix(1:6, nrow =2, ncol= 3)
+NROW(x_matrix)
+NCOL(x_matrix)
+```
+
+```{r}
+x_array <- array(1:60, dim=c(5,3,4))
+NROW(x_array)
+NCOL(x_array)
+```
+
+
+```{r}
+length(x_array)
+```
+
+
+```{r}
+x_matrix <- matrix(1:16, nrow = 4, ncol = 4)
+dim(x_matrix) <- c(8,2)
+x_matrix
+```
+
+
+```{r}
+dim(x_matrix) <- c(2,2,4)
+x_matrix
+```
+
+
+
 
 ## Basic arithmetics function
 
