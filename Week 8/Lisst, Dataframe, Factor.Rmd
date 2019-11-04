@@ -1,0 +1,304 @@
+---
+title: "List, Factor, Dataframe"
+author: "Jesse"
+date: "2019¦~11¤ë4¤é"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+library(tidyverse)
+```
+**List, Factor, DataFrame** are three important data structures that we would use a lot during data storage.  
+After getting furthur knowledge about them, we can decide what type of data strucutres we use to store data.
+
+
+
+# List
+List is a data structure having components of mixed data types.  
+
+## Create a list.
+We use `list()` to create a list.
+
+```{r}
+x <- list(2.5, TRUE, 2)
+```
+
+As you can see, a list *x* with components consisting of  *numeric*, *logical* and *integer* .  
+
+We can use `str()` function to examine its structure.
+
+```{r}
+str(x)
+```
+
+
+Also, we can assign *called tags* so that it would be easier to reference the components of the list.  
+It's optional.
+
+
+```{r}
+x <- list("a" = 2.5, "b" = TRUE, "c" = 2)
+str(x)
+```
+
+## Data Extraction
+
+```{r}
+x <- list("name" = "John", "age" = 19, "language" = c("Chinese", "English"))
+```
+
+Index using integer vector
+
+```{r}
+x[c(1:2)]
+```
+
+Using negative inteer to exclude certain index.
+
+```{r}
+x[-3]
+```
+
+Index using character vector
+
+```{r}
+x[c(T,F,F)]
+```
+
+Index using called tags
+```{r}
+x[c("age", "language")]
+```
+
+Nevertheless, indexing with `[` will return sublist not the content inside the component.  
+We can use `[[` to get the content.
+
+```{r}
+x["age"]
+typeof(x["age"])
+
+x[["age"]]
+typeof(x[["age"]])
+```
+
+When trying to get the element of certain sublist,  
+we still need to use `[[`
+
+```{r}
+x[['language']][1]
+```
+
+
+## Modification
+Choose certain component and use assignment operator could modify the list.
+
+```{r}
+x[["name"]] <- "James"
+x
+```
+
+## Add components
+We can assign values with new tags.
+
+```{r}
+x[["married"]] <- FALSE
+x
+```
+
+or by index.
+
+```{r}
+x[[5]] <- 6
+x
+```
+
+## Delete components
+By assigning `NULL` to it, we can delete the component.
+
+```{r}
+x[["married"]] <- NULL
+str(x)
+```
+
+```{r}
+x[[4]] <- NULL
+x
+```
+
+### Question
+Below is some information about John, Mary, and Jean.
+
+John, Teacher, 21-year-old, not married.  
+Mary Professor, 25-year-old, married.  
+Jean Nurse, 30-year-old, not married.  
+
+1. Try to convert each person's information into a list.(3 lists in total)  
+2. Try to make a list of all informatioin.  
+
+
+# Factor
+Factor is a data structure used for taking only predefined, finite number of values.  
+For example, marital status can only contain with `single, married, separated, divoced, widowed` in it.  
+For thesse possible, predifined, distinct values, we called it *levels*.
+
+
+## Create
+We can create a factor using the function `factor()`.
+
+```{r}
+x <- factor(c("single","married", "married"))
+x
+```
+```{r}
+x <- factor(c("single","married", "married"), levels = c("single", "married", "divorced"))
+x
+```
+
+## Extraction
+Extracting elements of a factor is very much similar to that of vectors.
+
+```{r}
+x
+x[2]
+x[c(1:2)]
+x[-2] # exclude the second element
+x[c(T,F,T)] #using logical vector
+```
+
+## Modification
+We can modify elemts using assignments.  
+**Nevertheless, we cannot assign values not include in predifined values.**
+
+
+```{r}
+x
+x[2] <- "divorced"
+x[3] <- "separated"
+```
+
+If you think it necessary, you should add it to the level first.
+
+
+```{r}
+levels(x) <- c(levels(x), "separated")
+x[3] <- "separated"
+x
+```
+
+
+# DataFrame
+Dataframe is a *two* dimensional data structure.  
+It is a sppecial case of lists.  
+When we use data input functions like `read.csv()`,  
+it read data into a data frame.
+
+## Create
+We can create a dataframe using the `data.frame` function.
+
+```{r}
+x <- data.frame("No" = 1:3, "Age" = 21:19, "Married" = c(T,F,F), "Names" = c("Doris", "Daniel", "Lucy"))
+str(x)
+```
+
+** By default, dataframe would converts character vector into factor.**
+We cann pass the argument `stringAsFactors=FALSE` to stop this.
+
+```{r}
+x <- data.frame("No" = 1:3, "Age" = 21:19, "Married" = c(T,F,F), "Names" = c("Doris", "Daniel", "Lucy"), stringsAsFactors = FALSE)
+str(x)
+```
+
+If you wanna assign row_names, we can use `rownames()` function.  
+```{r}
+rownames(x) <- c("One", "Two", "Three")
+```
+
+
+## Data Extraction
+We can use `[`, `[[` and `$` operator to access columns of data frame.
+
+```{r}
+x["Names"]
+x$Names
+x[["Name"]]
+x[[3]]
+```
+
+### Question: What's the difference between the previous four way?
+
+Also, we can extract data by providing index for row and column.
+
+```{r}
+x[1,1]
+x[2,]
+x["One",]
+x["One","Names"]
+```
+
+
+## Modification
+Dataframes can be modified like we modified matrices.
+
+```{r}
+x[1,1] <- 6 
+x
+x["Daniel", "Age"] <- 60
+x
+```
+
+## Add components
+We can add rows to a data frame using the `rbind()` function.
+
+```{r}
+rbind(x, Jesse = list(6,22,FALSE, "Jesse"))
+rbind(x, list(5,20,TRUE,"Flora"))
+```
+
+Also, we could use `cbind()` to add columns.
+
+```{r}
+cbind(x, Children=c(1:4))
+
+```
+
+The most commonly used one is to use `$` to add new columns.
+
+```{r}
+x$Language <- c("Chinese","Chinese","Chinese","English")
+```
+
+
+## Delete components
+By assigning `NULL` to it, we can delete the component.
+
+```{r}
+x$No <- NULL
+x
+```
+
+
+### Question
+
+1. Please convert information about James, Jason, Johnny into dataframe.
+
+- Name, Age, Language, Relationship  
+- James, 20, speaks Chinese, single  
+- Jason, 22, speaks English, not single  
+- Johnny, 30, speaks spanish, not single  
+
+2. Extract Jason's data / Extract Language data / Extract James' Age
+
+3. We found that Jason is actually 30 years old. Try correcting it.
+
+4. Add Ted's data into the dataframe.
+
+- Ted, 30, speaks English, single
+
+5. To keep privacy of our data, try drop the Name Column.
