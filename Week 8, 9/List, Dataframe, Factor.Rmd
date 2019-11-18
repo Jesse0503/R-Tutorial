@@ -192,6 +192,18 @@ x[3] <- "separated"
 x
 ```
 
+### Question
+
+1. Create a factor job1 (associate, business analyst, partner)  where levels having business analyst, associate, partner
+
+2. Create a factor job2 (associate, business analyst, manager)  where levels having business analyst, associate, manager, partner
+
+3. Add partner to job2
+
+4. Add Associate partner to job2
+
+
+
 
 # DataFrame
 Dataframe is a *two* dimensional data structure.  
@@ -227,7 +239,7 @@ We can use `[`, `[[` and `$` operator to access columns of data frame.
 ```{r}
 x["Names"]
 x$Names
-x[["Name"]]
+x[["Names"]]
 x[[3]]
 ```
 
@@ -249,7 +261,7 @@ Dataframes can be modified like we modified matrices.
 ```{r}
 x[1,1] <- 6 
 x
-x["Daniel", "Age"] <- 60
+x["Three", "Age"] <- 60
 x
 ```
 
@@ -264,14 +276,14 @@ rbind(x, list(5,20,TRUE,"Flora"))
 Also, we could use `cbind()` to add columns.
 
 ```{r}
-cbind(x, Children=c(1:4))
+cbind(x, Children=c(1:3))
 
 ```
 
 The most commonly used one is to use `$` to add new columns.
 
 ```{r}
-x$Language <- c("Chinese","Chinese","Chinese","English")
+x$Language <- c("Chinese","Chinese","Chinese")
 ```
 
 
