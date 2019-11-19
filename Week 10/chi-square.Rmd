@@ -1,0 +1,109 @@
+---
+title: "Chi-square Test"
+author: "Jesse"
+date: "2019¦~11¤ë18¤é"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+```
+
+# Chi-Square Test.
+
+Today we learn how to do chi-square test toward data.
+
+You may download *Smoking* data from https://www.openintro.org/stat/data.php?data=smoking.  
+It surveys the smoking habit in UK.  
+
+Some important variables explained in the following:  
+
+- gender : Gender with levels Female and Male.
+- nationality : Nationality with levels British, English, Irish, Scottish, Welsh, Other, Refused and Unknown.
+- marital_status : Marital status with levels Divorced, Married, Separated, Single and Widowed.
+
+- smoke : Smoking status with levels No and Yes
+
+Today, we gonna test if the above three variables have association with the smoking habit.
+
+## Read data.
+As usual, we use `read.csv` to read csv files.
+
+```{r}
+smoking <- read.csv("C:/Users/asus/Desktop/TA/TA session/week10/smoking.csv")
+```
+
+## Basic data analysis.
+We wanna to know more about the relation between smoke and *gender, nationality, marital_status* respectively.
+Here, we produce *a contingency table of percentage * and *do some plots*.
+
+Firstly, we conduct plots to see the distribution of smoke or not filter by the *gender, nationality, marital_status*.  
+Here, we found that *barplot* would help a lot.
+
+```{r}
+ggplot(data = smoking) + 
+  geom_bar(mapping = aes(x=smoke, fill=marital_status), position = "dodge")
+
+ggplot(data = smoking) + 
+  geom_bar(mapping = aes(x=smoke, fill=nationality), position = "dodge")
+
+ggplot(data = smoking) + 
+  geom_bar(mapping = aes(x=smoke, fill=gender), position = "dodge")
+```
+
+Secondly. we try conducting contingency table of percentage to furthur see the distribution by percentage.
+
+```{r}
+
+gender.smoke <- table(smoking$smoke, smoking$gender)
+gender.smoke.pro <- prop.table(gender.smoke, margin = 2)
+print(gender.smoke.pro)
+
+marital.smoke <- table(smoking$smoke, smoking$marital_status)
+marital.smoke.pro <- prop.table(marital.smoke, margin = 2)
+print(marital.smoke.pro)
+
+nationality.smoke <- table(smoking$smoke, smoking$nationality)
+nationality.smoke.pro <- prop.table(nationality.smoke, margin = 2)
+print(nationality.smoke.pro)
+
+```
+
+## Conduct chi-square test.
+Finally, we conduct chi-square test to see if the three variables have association with smoke.
+
+```{r}
+chisq.test(gender.smoke)
+
+chisq.test(marital.smoke)
+
+chisq.test(nationality.smoke)
+```
+
+if we set a = 0.05
+We can see **marital_status. nationality** both have association with smoking habit.
+
+
+
+### Question
+You may donwload *absenteeism* dataset from https://www.openintro.org/stat/data.php?data=absenteeism .  
+Reserachers collected data from 146 randomly sampled students in rural New South Wales, Australia, in a particular school year.  
+
+Some important variables explained in the following:  
+
+- sex : Gender.
+- lrn : Learner status, with average learner (`AL`) and slow learner (`SL`).
+
+We wanna test if there's strong association between gender and learning status.
+a = 0.05.
+
+1. Make a two-way by-percentage contingency table of the sex and lrn.
+2. Do some plots to know more about them.
+3. Do chi-suare test.
