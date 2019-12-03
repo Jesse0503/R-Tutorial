@@ -1,0 +1,86 @@
+---
+title: "ANOVA"
+author: "Jesse"
+date: "2019¦~12¤ë3¤é"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+```
+
+**ANOVA**, analysis of variance,  based on compare *between-group* variances & *within-group* variances.  
+And we reject H~0~ if between-variance significantly > within-variance.
+
+We use `aov` function to conduct ANOVA.  
+Meanwhile, we have to do two more things to conduct our ANOVA.  
+
+1. We have to change variables into **categorical variable** before conduct ANOVA.
+2. We have to furthur use `summary` to see the result.
+
+
+Here we use dataset **babies**.(https://www.openintro.org/stat/data.php?data=babies)  
+In `babies`, researchers investigate a range of topics about pregnancies and infants.  
+We wanna see that whether average birthweight varies with mother's age.  
+
+- bwt: birthweight
+- gestation: length of gestation
+- age: mother's age in years
+
+
+## Load dataset.
+After loading dataset, we try filtering out the missing values.  
+
+```{r}
+babies <- read.csv("C:/Users/asus/Desktop/TA/TA session/week12/babies.csv")
+babies <- babies[complete.cases(babies),]
+```
+
+## Convert age into categorical variables.
+We did this by convert *age* into **factor**.  
+
+```{r}
+babies$age <- factor(babies$age)
+```
+
+And we use `levels` to see how many ages do we have.
+```{r}
+levels(babies$age)
+```
+
+
+## Plots
+As there are too many different ages in the dataset,  
+we directly use some plots to see the difference.
+
+
+```{r}
+## Boxplot
+ggplot(data=babies) +
+  geom_boxplot(mapping = aes(x=age, y=bwt))
+
+##Barplot
+ggplot(data = babies) +
+  geom_histogram(mapping = aes(x=bwt, fill=age), binwidth = 10)
+```
+
+
+## ANOVA test
+Finally, we conduct anova test to see the result.  
+
+```{r}
+aov_result <- aov(bwt~age, data = babies)
+summary(aov_result)
+```
+
+
+### Question
+1. Check whether average length of gestation varies with mother's age.
+2. Use dataset **mlb_player_18** (https://www.openintro.org/stat/data.php?data=mlb_players_18).  Check whether average *AVG* varies with *position*.  Filter out data with missing values or where it's *AB* < 10.

@@ -1,0 +1,164 @@
+---
+title: "t-Test_2"
+author: "Jesse"
+date: "2019¦~12¤ë2¤é"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+```
+
+
+## Two independent samples
+The independent sample t-test is used to compare two means between two groups.  
+At the previous course, we had two values for each type.  
+
+ex.  
+ Bookstore1 Bookstore2  
+Book1 500 600  
+Book2 800 900  
+Book3 450 655  
+Book4 555 666  
+Book5 878 997  
+
+We use `t.test(Bookstore$1, Bookstore$2)`.  
+
+
+This time, we gonna go through dataset of different type.
+
+ex.  
+Height Gender  
+ 158 Female  
+ 155 Female  
+ 180 Male  
+ 177 Male  
+ 160 Female  
+ 150 Female  
+ 168 Male  
+
+Under such circumstances, we have to use `t.test(height~gender, data=height)`.  
+
+Here we use dataset **babies**.(https://www.openintro.org/stat/data.php?data=babies)  
+In `babies`, researchers investigate a range of topics about pregnancies and infants.  
+We wanna see that `whether it's a first pregnancy`, `whether mother smokes` have impacts on `infant's birthweight`.  
+
+- bwt: birthweight
+- gestation: length of gestation
+- parity: indicator for a first pregnancy
+- smoke: binary indicator for whether the mother smokes.
+
+
+### Load dataset and filter out the missing values.  
+Firstly, we use `read.csv` to load dataset.  
+
+
+```{r}
+babies <- read.csv("C:/Users/asus/Desktop/TA/TA session/week12/babies.csv")
+head(babies)
+```
+
+As we can see, there are some **NA** in the dataset.  
+Therefore, we use `complete.cases` to filter out the NA values.  
+`complete.cases` returns a logical vector indicating which cases are complete.   
+
+```{r}
+head(complete.cases(babies))
+```
+
+With such, we can filter out the **NA** values in datatset.  
+
+```{r}
+babies <- babies[complete.cases(babies),]
+```
+
+After completing filtering out, here we try conduct some easy analytics.
+
+
+### Easy Analytics
+
+Here we see the difference between smoke or not.  
+
+```{r}
+babies[babies$smoke==1,] %>%
+  summarize(n(),
+            mean(bwt),
+            sd(bwt),
+            min(bwt),
+            max(bwt))
+
+babies[babies$smoke==0,] %>%
+  summarize(n(),
+            mean(bwt),
+            sd(bwt),
+            min(bwt),
+            max(bwt))
+
+```
+
+And see the difference between first pregnancy or not.  
+
+```{r}
+babies[babies$parity==1,] %>%
+  summarize(n(),
+            mean(bwt),
+            sd(bwt),
+            min(bwt),
+            max(bwt))
+
+babies[babies$parity==0,] %>%
+  summarize(n(),
+            mean(bwt),
+            sd(bwt),
+            min(bwt),
+            max(bwt))
+```
+
+Meanwhile, we use plots to go through data more clearly.  
+
+**Histogram**  
+
+```{r}
+hist(babies[babies$parity==1,]$bwt)
+
+hist(babies[babies$parity==0,]$bwt)
+```
+
+```{r}
+hist(babies[babies$smoke==1,]$bwt)
+
+hist(babies[babies$smoke==0,]$bwt)
+```
+
+
+**Boxplot**  
+
+```{r}
+ggplot(data = babies) + 
+  geom_boxplot(mapping = aes(group=parity, x=parity, y=bwt))
+```
+
+```{r}
+ggplot(data = babies) + 
+  geom_boxplot(mapping = aes(group=smoke, x=smoke, y=bwt))
+```
+
+### Conduct t-statistics
+Finally, let's conduct t statistics for parity and smoke.  
+
+
+```{r}
+t.test(bwt~parity, data = babies)
+t.test(bwt~smoke, data = babies)
+```
+
+
+### Question 
+Check whether there's difference in `average length of gestation` between `whether it's a first pregnancy` and `whether mother smokes`
