@@ -1,0 +1,158 @@
+---
+title: "Linear Model"
+author: "Jesse"
+date: "2019¦~12¤ë9¤é"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+```
+
+**Least square linear regression** is to identify the relation between explanartory and response variable.  
+
+We use `lm` to conduct least square linear regression.  
+
+```
+lm(formula, data, subset, weights, na.action,
+   method = "qr", model = TRUE, x = FALSE, y = FALSE, qr = TRUE,
+   singular.ok = TRUE, contrasts = NULL, offset, ...)
+```
+
+Meanwhile, there are four conditions to be satisfied to conduct Least Squares Line.
+
+1. Linearity: linear trend  
+2. Normal Residuals: no outliers  
+3. Constant variability in residuals
+4. Independent Observations  
+
+
+Here we use dataset **murders**.(https://www.openintro.org/stat/data.php?data=murders)  
+In `murders`, we collect data of 20 metropolitan areas.  
+Here we try to see the relation between `poverty` and `murder rate`
+
+- perc_pov: Percent in poverty.
+- perc_unemp: Percent unemployed
+- annual_murders_per_mil: Number of murders per year per million people.  
+
+
+## Load dataset.  
+Again, we load dataset with `read.csv()`.
+
+```{r}
+murders <- read.csv("C:/Users/asus/Desktop/TA/TA session/week13/murders.csv")
+```
+
+
+## Plots & See the correlations
+Here to ensure there's linearity relation between the two variables,  
+we use `geom_point()` to see the distribution of scatterplot  
+and use `geom_smooth` to make it linear,  
+
+```{r}
+# Scatterplot
+ggplot(data = murders) + 
+  geom_point(mapping = aes(x=perc_pov, y=annual_murders_per_mil))
+
+# Line
+ggplot(data = murders) + 
+  geom_smooth(mapping = aes(x=perc_pov, y=annual_murders_per_mil))
+```
+
+As we can see, there's a linear trend there.  
+Here, we can use `cor` to check the correlation between two variables.
+
+```{r}
+cor(murders$perc_pov, murders$annual_murders_per_mil)
+```
+
+## Linear square regression
+
+```
+To conduct linear square regression, we use `lm()` as the following.  
+
+y = (slope) x + (intercept)
+=> lm(y~x)
+```
+Then we conduct linear square regression.  
+
+```{r}
+fit <- lm(murders$annual_murders_per_mil~murders$perc_pov)
+fit
+```
+
+Meanwhile, there's quite some more attributes about the regression that we can make use of.  
+
+```{r}
+attributes(fit)
+```
+
+## coefficients
+We can print out the y-intercept and slope by accessing `coefficients` variables.
+
+```{r}
+# Intercept
+fit$coefficients[1]
+fit$coefficients[[1]]
+
+# Slope
+fit$coefficients[2]
+fit$coefficients[[2]]
+```
+So like if we want to get an estimate of muder rate in certain umployment rate, we can use the formula.
+
+```{r}
+fit$coefficients[[2]] * 20 + fit$coefficients[[1]]
+```
+
+## residuals
+There's also easier way to get the residuals.  
+
+```{r}
+# 1
+residuals(fit)
+
+#2
+fit$residuals
+```
+
+and therefore, we can plot *residual plots*
+
+```{r}
+ggplot() + 
+  geom_point(mapping = aes(x = murders$perc_pov, y =fit$residuals))
+```
+
+## fitted.values
+We can use `fitte.values` variables to plot the regression line and real data point scatterplot.  
+
+```{r}
+ggplot() + 
+  geom_point(mapping = aes(x=murders$perc_pov, y=murders$annual_murders_per_mil)) +
+  geom_smooth(mapping = aes(x = murders$perc_pov, y =fit$fitted.values))
+```
+
+## summary()
+With `summary()` function, we can see furthur detail of our linear square regression just as we do on ANOVA result.  
+
+```{r}
+summary(fit)
+```
+
+
+### Question
+Now try use the same dataset to see the relation between `employment rate` and `murder rate`. (employment rate = 1 + unemployment rate)  
+
+1. Do the plots to see whther there's linearity relationship.
+2. See the correlation of the two variables.
+3. Conduct linear square regression and find the `intercept` and `slope`.
+4. What would the murder rate be if the employment rate were 70%.
+5. Do residual plots.
+6. Plot the regression line and real data point scatterplot together.
