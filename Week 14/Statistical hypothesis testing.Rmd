@@ -1,0 +1,49 @@
+---
+title: "Statistical hypothesis testing"
+author: "Jesse"
+date: "2019¦~12¤ë17¤é"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+```
+
+
+As we go through different types of statistical hypothesis testing;  
+today we tried three different problem sets to ensure our comprehension of these testing.  
+
+# Problem 1
+Use `vote-nsa` dataset (https://www.openintro.org/stat/data.php?data=vote_nsa)  
+and do the following questions.  
+
+1. Make a two-way table with answers of phone_spy_vote in rows and party affiliations in columns.  
+2. Make histograms for phone_spy_vote by party  
+3. Make barplots for voting distribution, and separated it by party affliation.
+4. Test if the answers significantly vary with a respondent¡¦s party affiliation.
+
+
+
+# Problem 2 
+Use `yrbss` dataset (https://www.openintro.org/stat/data.php?data=yrbss)  
+and do the following questions.  
+
+1. Make side-by-side box plots for physically_active_7d by gneder  
+2. Make histograms for physically_active_7d by gender  
+3. Test if  there is a difference in the average physically_active_7d between males and females?
+
+
+
+# Problem 3
+Use `yrbss` dataset (https://www.openintro.org/stat/data.php?data=yrbss)  
+and do the following questions.  
+
+1. Make side-by-side box plots for physically_active_7d by different race.  
+2. Test if average physically_active_7d vary with race?  
