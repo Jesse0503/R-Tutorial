@@ -1,0 +1,34 @@
+---
+title: "Linear Regression Review"
+author: "Jesse"
+date: "2019¦~12¤ë24¤é"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+```
+
+
+As we go through linear regression on previous course;  
+today we tried one more problem sets to ensure our comprehension of linear regression.  
+
+
+# Problem 1
+Use `tips` dataset (https://www.openintro.org/stat/data.php?data=tips)  
+to detect whther there's association between `number of people in group` and `total tips`.
+
+1. Do the plots to see whther there's linearity relationship.
+2. See the correlation of the two variables.
+3. Conduct linear square regression and find the `intercept` and `slope`.
+4. Do the data provide strong evidence that more people in group is associated with more tips¡H
+5. Do residual plots.
+6. Plot the regression line and real data point scatterplot together.
+7. How much would they pay the tip if there are 12 people in the group¡H
